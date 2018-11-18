@@ -12,12 +12,21 @@ namespace GetSearchRanks.Controllers
     {
         public IActionResult Index(string searchTerms, string targetURL)
         {
-            Google google = new Google();
-            string webpage = google.RunSearchQuery(searchTerms);
-            ViewData["test"] = webpage;
+            if (!string.IsNullOrEmpty(searchTerms)) { 
+                Google google = new Google();
+                GoogleResultsParser parser = new GoogleResultsParser();
+
+                string webpage = google.RunSearchQuery(searchTerms);
+ 
+                Result[] results = parser.ParseHtmlToSearchResults(webpage);
+
+                ViewData["Results"] = results;
+            }
 
             return View();
         }
+
+
 
         public IActionResult About()
         {

@@ -3,6 +3,6 @@ namespace GetSearchRanks.Models
 {
     public interface IParser
     {
-        string ParseHtmlToSearchResults(string htmlInput);
+        Result[] ParseHtmlToSearchResults(string htmlInput);
     }
 }
