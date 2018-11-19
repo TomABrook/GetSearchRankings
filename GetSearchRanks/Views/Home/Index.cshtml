@@ -1,41 +1,78 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+
 <div id="wrapper">
-    <div id="SearchFormContainer">
-        <h2>Enter Search Terms</h2>
+    <div id="SearchFormDiv" class="col-md-8">
+        <h2>Find Search Rankings</h2>
         <br />
-        <form id="SearchForm" asp-controller="Home" asp-action="Index" method="get">
-            <span>Search Terms: </span><input type="text" id="SearchTermsField" class="TextField" name="searchTerms" />
+
+        <form id="SearchForm" asp-controller="Home" asp-action="Index" method="get" onsubmit="return Validate()">
+            <span>Search Terms: </span><input type="text" id="SearchTermsField" class="TextField" name="searchTerms" size="45" placeholder="eg: land registry searches"/>
             <br /><br />
-            <span>Target URL: </span><input type="text" id="TargetURLField" class="TextField" name="targetURL" />
+            <span>Match URL: </span><input type="text" id="TargetURLField" class="TextField" name="targetURL" size="45" placeholder="eg: infotrack.co.uk"/>
             <br /><br />
             <input type="submit" id="FormSubmit" value="Go" />
+            <p class="error"></p>
         </form>
+
         <br />
+        <div id="SearchOptionsDiv">
+            <h5>Search Options</h5>
+            <span>
+                Search Engine:
+                <select form="SearchForm" id="SearchEngineSelector" name="searchEngine">
+                    <option value="google">Google</option>
+                </select>
+            </span>
+            <span>&emsp;Search first <input form="SearchForm" type="text" id="NumResultsField" class="TextField" name="numResults" size="2" value="100"/> results</span><br />
+        </div>
     </div>
-    <div id="ResultsContainer">
-        <h2>Ranking</h2>
+
+
+    <div id="TipsDiv" class="col-md-4">
+        <h2>Tips</h2>
+        <br />
+        <ul>
+            <li>You can enter a URL fragment to account for multiple top level domains, for example "infotrack.co" will give results including "infoctrack.co.uk", "infotrack.com.au", etc </li>
+            <br />
+            <li>Large or frequent queries may cause you IP to be temporily blocked by the search provider for this service, casuing an error</li>
+        </ul>
+    </div>
+
+
+    <div id="ResultsDiv" class="col-md-12">
+        <br /><br />
+        <h2>Results</h2>
         @if (ViewData["Results"] != null)
-         {
-        <table id="RankingTable">
-            <thead>Rank</thead>
-            <thead>Title</thead>
-            <thead>URL</thead>
-            @foreach (Result result in (Result[])ViewData["Results"])
-             {
-            <tr>
-                <td>@result.rank</td>
-                <td>@result.title</td>
-                <td>@result.url</td>
-            </tr>
+        {
+        <p class="ResultsMessage">@ViewData["ResultCount"] matches were found countaining @ViewData["TargetURL"] for the search query
+        @ViewData["Query"] in the first @ViewData["NumResults"] search results</p>
+
+            @if ((int)ViewData["ResultCount"] > 0)
+            {
+                <table id="RankingTable" class="table-striped" style="word-wrap:break-word;">
+                    <tr>
+                        <th class="RankColumn">Rank</th>
+                        <th class="TitleColumn">Title</th>
+                        <th class="URLColumn">URL</th>
+                    </tr>
+                    @foreach (Result result in (List<Result>)ViewData["Results"])
+                    {
+                        <tr>
+                            <td class="RankColumn">@result.rank</td>
+                            <td class="TitleColumn">@result.title</td>
+                            <td class="URLColumn"><a href="@result.url">@result.url</a></td>
+                        </tr>
+                    }
+                </table>
             }
-        </table>
-        } else 
+        } else
         {
         <br />
-        <h5>Enter a query to see it's search rankings</h5>
+        <p class="ResultsMessage">Enter a query to see it's search rankings</p>
         }
-        
+        <br /><br /><br />
     </div>
 </div>

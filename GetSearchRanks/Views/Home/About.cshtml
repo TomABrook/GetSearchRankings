@@ -2,6 +2,25 @@
     ViewData["Title"] = "About";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<div class="col-md-5">
+    <h3>Features</h3>
+    <p>
+        Get Search Rankings provides a simple tool for searching how often a url 
+        appearing in search engine results. You can instantly see how many times it appears 
+        a given number of results, along with the ranks and urls of each hit.
+    </p>
 
-<p>Use this area to provide additional information.</p>
+    <h3>Design</h3>
+    <p>
+        This website has been implemented using ASP.NET and Javascript, with an MVC architecture.
+        I have used an object oriented design to make it easy to add new search engine options in the future.
+    </p>
+    <p>
+        When the form on the home page is submitted successfully the webclient API is used to run
+        a search query and the a class implementing the IParser interface will use the c# regular expression
+        language to parse html from the results page into custom Result objects.
+    </p>
+
+    <h3>Developers</h3>
+    <p>Tom Brook</p>
+</div>

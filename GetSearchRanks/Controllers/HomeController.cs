@@ -10,17 +10,26 @@ namespace GetSearchRanks.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index(string searchTerms, string targetURL)
+        // Home Paage
+        public IActionResult Index(string searchTerms, string targetURL, string numResults)
         {
             if (!string.IsNullOrEmpty(searchTerms)) { 
-                Google google = new Google();
-                GoogleResultsParser parser = new GoogleResultsParser();
+                // Object used to perform search queries and get parsed results
+                GoogleSearch google = new GoogleSearch();
 
-                string webpage = google.RunSearchQuery(searchTerms);
- 
-                Result[] results = parser.ParseHtmlToSearchResults(webpage);
+                // Set number of results to be searched to provided value
+                google.numResults = Convert.ToInt32(numResults);
+
+                // Get results for query filtred by url
+                List<Result> results = google.RunSearchQuery(searchTerms, targetURL);
+
+                // Pass data to view
 
                 ViewData["Results"] = results;
+                ViewData["ResultCount"] = results.Count;
+                ViewData["TargetURL"] = targetURL;
+                ViewData["NumResults"] = numResults;
+                ViewData["Query"] = searchTerms;
             }
 
             return View();

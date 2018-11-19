@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace GetSearchRanks.Models
 {
-    public interface IParser
+    public interface ISearchResultsParser
     {
-        Result[] ParseHtmlToSearchResults(string htmlInput);
+        List<Result> ParseHtmlToSearchResults(string htmlInput, string targetURL);
     }
 }

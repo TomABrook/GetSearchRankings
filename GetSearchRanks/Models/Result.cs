@@ -3,7 +3,7 @@ namespace GetSearchRanks.Models
 
 {
     // Object used to store infomation about an individual search result
-    public class Result : IResult
+    public class Result
     {
         // Where the result appears in descending order
         public int rank { get; set; }

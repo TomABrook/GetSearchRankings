@@ -1,5 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
-for details on configuring this project to bundle and minify static web assets. */
+﻿
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -12,10 +11,62 @@ body {
     padding-right: 15px;
 }
 
-#wapper {
+#SearchFormDiv {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#SearchFormDiv form input {
+    float: right;
+    text-align:right;
+    padding-right:5px;
+}
+
+.error {
+    color: RGB(255,100,100);
+}
+
+#TipsDiv {
+    border-left: solid 1px RGB(220,220,220);
+}
+
+h2 {
+    text-align: center;
+}
+
+#ResultsDiv {
+
+}
+
+.ResultsMessage {
+    text-align: center;
+}
+
+table {
+    table-layout:fixed;
+    width:100% !important;
+}
+
+th {
+    text-align:center;
+}
+
+td,th {
+    padding:5px;
+    word-wrap:break-word;
     
 }
 
-    table, tr {
-    border: 1px solid black;
+.RankColumn {
+    width: 5% !important;
+    text-align:center;
 }
+
+.TitleColumn {
+    width: 40% !important;
+}
+
+.URLColumn {
+    width: 50% !important;
+}
+
