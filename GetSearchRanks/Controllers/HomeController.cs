@@ -13,18 +13,23 @@ namespace GetSearchRanks.Controllers
         // Home Paage
         public IActionResult Index(string searchTerms, string targetURL, string numResults)
         {
-            if (!string.IsNullOrEmpty(searchTerms)) { 
-                // Object used to perform search queries and get parsed results
-                GoogleSearch google = new GoogleSearch();
+            if (!string.IsNullOrEmpty(searchTerms)) {
 
-                // Set number of results to be searched to provided value
-                google.numResults = Convert.ToInt32(numResults);
+                // Set the search filters
+                GoogleFilter filters = new GoogleFilter(Convert.ToInt32(numResults));
+
+                // Object used to perform search queries and get parsed results
+                GoogleSearch google = new GoogleSearch(filters);
 
                 // Get results for query filtred by url
-                List<Result> results = google.RunSearchQuery(searchTerms, targetURL);
+                List<WebResult> results = google.RunSearchQuery(searchTerms, targetURL);
+
+                // A web exception was thrown
+                if (results == null) {
+                    ViewData["WebError"] = "A web error has occured";
+                }
 
                 // Pass data to view
-
                 ViewData["Results"] = results;
                 ViewData["ResultCount"] = results.Count;
                 ViewData["TargetURL"] = targetURL;
@@ -36,17 +41,14 @@ namespace GetSearchRanks.Controllers
         }
 
 
-
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
 
             return View();
         }

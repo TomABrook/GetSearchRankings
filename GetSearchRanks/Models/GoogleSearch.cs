@@ -8,31 +8,46 @@ namespace GetSearchRanks.Models
 {
     public class GoogleSearch : SearchEngine
     {
-        public GoogleSearch()
+        public GoogleSearch(GoogleFilter filters)
         {
             name = "Google";
             baseURL = "https://www.google.co.uk/search";
-            numResults = 3;
+
+            // Set user provided filters
+            this.Filters = filters;
+
             parser = new GoogleResultsParser();
 
             // webclient.Proxy = this.wp;
         }
 
-
-        // Runs a google search on query and returns results filtered by targetURL
-        public override List<Result> RunSearchQuery(string query, string targetURL)
+        // Create full search url
+        protected override string ConstructURL(string query)
         {
             // Spaces aren't valid in google search url
             query.Replace(' ', '+');
             System.Diagnostics.Debug.WriteLine(query);
 
-            // Construct query
-            string queryURL = baseURL + "?num=" + numResults + "&q=" + query;
+            // Get filters
+            int numResults = this.Filters.NumResults;
+
+            // Construct url
+            string fullURL = baseURL + "?num=" + numResults + "&q=" + query;
+
+            return fullURL;
+
+        }
+
+
+        // Runs a google search on query and returns results filtered by targetURL
+        public override List<WebResult> RunSearchQuery(string query, string targetURL)
+        {
+            string fullURL = ConstructURL(query);
 
             try
             {
                 // Perfrom search query, obtaining search results html
-                string webpage = webclient.DownloadString(queryURL);
+                string webpage = webclient.DownloadString(fullURL);
 
                 // Return html as a parsed set
 

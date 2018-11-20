@@ -5,6 +5,6 @@ namespace GetSearchRanks.Models
 {
     public interface ISearchResultsParser
     {
-        List<Result> ParseHtmlToSearchResults(string htmlInput, string targetURL);
+        List<WebResult> ParseHtmlToSearchResults(string htmlInput, string targetURL);
     }
 }

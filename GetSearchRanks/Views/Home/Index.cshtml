@@ -2,8 +2,8 @@
     ViewData["Title"] = "Home Page";
 }
 
-
 <div id="wrapper">
+    <br />
     <div id="SearchFormDiv" class="col-md-8">
         <h2>Find Search Rankings</h2>
         <br />
@@ -58,12 +58,12 @@
                         <th class="TitleColumn">Title</th>
                         <th class="URLColumn">URL</th>
                     </tr>
-                    @foreach (Result result in (List<Result>)ViewData["Results"])
+                    @foreach (WebResult result in (List<WebResult>)ViewData["Results"])
                     {
                         <tr>
-                            <td class="RankColumn">@result.rank</td>
-                            <td class="TitleColumn">@result.title</td>
-                            <td class="URLColumn"><a href="@result.url">@result.url</a></td>
+                            <td class="RankColumn">@result.Rank</td>
+                            <td class="TitleColumn">@result.Title</td>
+                            <td class="URLColumn"><a href="@result.Url">@result.Url</a></td>
                         </tr>
                     }
                 </table>

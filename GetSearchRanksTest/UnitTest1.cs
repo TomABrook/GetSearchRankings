@@ -7,29 +7,47 @@ using GetSearchRanks.Models;
 
 namespace GetSearchRanksTest
 {
-    public class UnitTest1
+    public class UnitTests
     {
+        // Test google parser on a html dump from results page
         [Fact]
         public void GoogleParserTest()
         {
             // given...
-            GoogleSearch google = new GoogleSearch();
+            GoogleFilter filter = new GoogleFilter(5);
+            GoogleSearch google = new GoogleSearch(filter);
             GoogleResultsParser parser = new GoogleResultsParser();
+
+            // open file
             string currentpath = Directory.GetCurrentDirectory();
             string testProjectPath = Path.GetFullPath(Path.Combine(currentpath, @"../../../"));
             string testFilePath = Path.Combine(testProjectPath, "GoogleResultsTestHtml.txt");
             string testHtml = File.ReadAllText(testFilePath, Encoding.UTF8);
 
             // when...
-            List<Result> results = google.RunSearchQuery("infotrack", "infotrack");
+            List<WebResult> results = parser.ParseHtmlToSearchResults(testHtml, "info");
 
             // then...
-            Assert.Equal("InfoTrack", results[0].title);
             Assert.Equal(3, results.Count);
-            Assert.Equal(1, results[0].rank);
-            Assert.Equal(3, results[2].rank);
-            Assert.Equal("InfoTrack", results[0].title);
-            Assert.Equal("Conveyancing Searches - InfoTrack | LEAP UK", results[1].title);
+            Assert.Equal("https://www.infotrack.co.uk/", results[0].Url);
+            Assert.Equal(1, results[0].Rank);
+            Assert.Equal(3, results[2].Rank);
+            Assert.Equal("InfoTrack", results[0].Title);
+            Assert.Equal("Conveyancing Searches - InfoTrack | LEAP UK", results[1].Title);
+        }
+
+
+        // Test Google filter
+        [Fact]
+        public void TestGoogleFilter() {
+            // Given...
+            GoogleFilter filter = new GoogleFilter(5);
+
+            // When...
+            filter.SetTimePeriod("Year");
+
+            // Then...
+            Assert.Equal("y", filter.GetTimePeriod());
         }
     }
 

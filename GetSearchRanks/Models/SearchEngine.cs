@@ -23,15 +23,18 @@ namespace GetSearchRanks.Models
         // Base URL of the search engine, to be combined with settings and search terms
         protected string baseURL;
 
-        // The number of results requested by user
-        public int numResults { get; set; }
-
         // Name of the search engine
         public string name;
 
+        // Search filters to apply
+        public SearchFilter Filters;
+
+        // Construct a full search url by appending the base url, search query and filter options
+        protected abstract string ConstructURL(string query);
+
         // Queries the string provided by the user in the search engine and 
         // returns an list of parsed results filtered by thtargetURL
-        public abstract List<Result> RunSearchQuery(string query, string targetURL);
+        public abstract List<WebResult> RunSearchQuery(string query, string targetURL);
 
     }
 }

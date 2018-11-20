@@ -8,13 +8,13 @@ namespace GetSearchRanks.Models
     public class GoogleResultsParser : ISearchResultsParser
     {
         // Returns a list of filtered search results, or unfiltered if no url is supplied
-        public List<Result> ParseHtmlToSearchResults(string htmlInput, string targetURL ="") {
+        public List<WebResult> ParseHtmlToSearchResults(string htmlInput, string targetURL ="") {
 
             // Check input is valid
             if (!string.IsNullOrEmpty(htmlInput))
             {
                 // Pattern to match html capturing a single result on google results page
-                string pattern = "<div class=\"g\">.*</div>";
+                string pattern = "<div class=\"g\">.*?</div>";
 
                 MatchCollection matches = Regex.Matches(htmlInput, pattern);
 
@@ -22,7 +22,7 @@ namespace GetSearchRanks.Models
                 System.Diagnostics.Debug.WriteLine("num matches = {0}", matches.Count);
 
                 // Results here to be returned
-                List<Result> results = new List<Result>();
+                List<WebResult> results = new List<WebResult>();
 
                 // No search rank value in html data so this variable will be used
                 int rank = 1;
@@ -55,7 +55,7 @@ namespace GetSearchRanks.Models
                     // In some cases an image widge will be matched, this check is to remove it from results
                     if (!String.IsNullOrEmpty(titleString))
                     {
-                        Result result = new Result(rank, urlString, titleString);
+                        WebResult result = new WebResult(rank, urlString, titleString);
                         results.Add(result);
                     }
                     rank++;
