@@ -31,6 +31,7 @@ namespace GetSearchRanks.Models
             }
         }
 
+        // Return time period
         public string GetTimePeriod() {
             return this.TimePeriod;
         }
