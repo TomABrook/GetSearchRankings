@@ -9,9 +9,9 @@
         <br />
 
         <form id="SearchForm" asp-controller="Home" asp-action="Index" method="get" onsubmit="return Validate()">
-            <span>Search Terms: </span><input type="text" id="SearchTermsField" class="TextField" name="searchTerms" size="45" placeholder="eg: land registry searches"/>
+            <span>Search Terms: </span><input type="text" id="SearchTermsField" class="TextField" name="searchTerms" size="45" placeholder="eg: shop for clothes"/>
             <br /><br />
-            <span>Match URL: </span><input type="text" id="TargetURLField" class="TextField" name="targetURL" size="45" placeholder="eg: infotrack.co.uk"/>
+            <span>Match URL: </span><input type="text" id="TargetURLField" class="TextField" name="targetURL" size="45" placeholder="eg: amazon.co.uk"/>
             <br /><br />
             <input type="submit" id="FormSubmit" value="Go" />
             <p class="error"></p>
@@ -35,7 +35,7 @@
         <h2>Tips</h2>
         <br />
         <ul>
-            <li>You can enter a URL fragment to account for multiple top level domains, for example "infotrack.co" will give results including "infoctrack.co.uk", "infotrack.com.au", etc </li>
+            <li>You can enter a URL fragment to account for multiple top level domains, for example "amazon.co" will give results including "amazon.co.uk", "amazon.com", etc </li>
             <br />
             <li>Large or frequent queries may cause you IP to be temporily blocked by the search provider for this service, casuing an error</li>
         </ul>
